@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "k1i93qiAa6TqNIjx1a6OY"
+uri = "file://artifacts/mobile/assets/images/icon.png"
+type = "image"
+title = "emergency app icon"
