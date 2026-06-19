@@ -10,7 +10,7 @@ import {
 
 import { KENYA_HOSPITALS } from "@/constants/kenya-hospitals";
 import { useColors } from "@/hooks/useColors";
-import { UserLocation, getDistanceKm } from "@/hooks/useLocation";
+import { UserLocation, formatDistance, getDistanceKm } from "@/hooks/useLocation";
 import { HospitalCard } from "./HospitalCard";
 
 interface NearbyHospitalsProps {

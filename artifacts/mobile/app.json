@@ -66,9 +66,7 @@
       "reactCompiler": true
     },
     "extra": {
-      "eas": {
-        "projectId": "rescue-connect-kenya"
-      }
+      "eas": {}
     }
   }
 }
