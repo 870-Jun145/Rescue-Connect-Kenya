@@ -14,19 +14,23 @@ function NativeTabLayout() {
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Icon sf={{ default: "house", selected: "house.fill" }} />
-        <Label>All</Label>
+        <Label>Home</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="emergency">
+        <Icon sf={{ default: "exclamationmark.triangle", selected: "exclamationmark.triangle.fill" }} />
+        <Label>Emergency</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="hospitals">
         <Icon sf={{ default: "cross", selected: "cross.fill" }} />
         <Label>Hospitals</Label>
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="rescue">
-        <Icon sf={{ default: "shield", selected: "shield.fill" }} />
-        <Label>Rescue</Label>
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="support">
+      <NativeTabs.Trigger name="services">
         <Icon sf={{ default: "heart", selected: "heart.fill" }} />
-        <Label>Support</Label>
+        <Label>Services</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="more">
+        <Icon sf={{ default: "ellipsis", selected: "ellipsis.circle.fill" }} />
+        <Label>More</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -42,8 +46,8 @@ function ClassicTabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.mutedForeground,
+        tabBarActiveTintColor: "#C8102E",
+        tabBarInactiveTintColor: "#94A3B8",
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
@@ -61,24 +65,35 @@ function ClassicTabLayout() {
               style={StyleSheet.absoluteFill}
             />
           ) : isWeb ? (
-            <View
-              style={[
-                StyleSheet.absoluteFill,
-                { backgroundColor: colors.background },
-              ]}
-            />
+            <View style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }]} />
           ) : null,
+        tabBarLabelStyle: {
+          fontFamily: "Inter_500Medium",
+          fontSize: 10,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "All",
+          title: "Home",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="house" tintColor={color} size={24} />
+              <SymbolView name="house.fill" tintColor={color} size={22} />
             ) : (
-              <Feather name="home" size={22} color={color} />
+              <Feather name="home" size={20} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="emergency"
+        options={{
+          title: "Emergency",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="exclamationmark.triangle.fill" tintColor={color} size={22} />
+            ) : (
+              <Feather name="alert-triangle" size={20} color={color} />
             ),
         }}
       />
@@ -88,33 +103,33 @@ function ClassicTabLayout() {
           title: "Hospitals",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="cross" tintColor={color} size={24} />
+              <SymbolView name="cross.fill" tintColor={color} size={22} />
             ) : (
-              <Feather name="activity" size={22} color={color} />
+              <Feather name="activity" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
-        name="rescue"
+        name="services"
         options={{
-          title: "Rescue",
+          title: "Services",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="shield.fill" tintColor={color} size={24} />
+              <SymbolView name="heart.fill" tintColor={color} size={22} />
             ) : (
-              <Feather name="shield" size={22} color={color} />
+              <Feather name="heart" size={20} color={color} />
             ),
         }}
       />
       <Tabs.Screen
-        name="support"
+        name="more"
         options={{
-          title: "Support",
+          title: "More",
           tabBarIcon: ({ color }) =>
             isIOS ? (
-              <SymbolView name="heart" tintColor={color} size={24} />
+              <SymbolView name="ellipsis.circle.fill" tintColor={color} size={22} />
             ) : (
-              <Feather name="heart" size={22} color={color} />
+              <Feather name="more-horizontal" size={20} color={color} />
             ),
         }}
       />

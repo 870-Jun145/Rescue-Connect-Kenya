@@ -1,7 +1,7 @@
 const colors = {
   light: {
     text: "#0f172a",
-    tint: "#DC2626",
+    tint: "#C8102E",
 
     background: "#F8FAFC",
     foreground: "#0f172a",
@@ -9,7 +9,7 @@ const colors = {
     card: "#FFFFFF",
     cardForeground: "#0f172a",
 
-    primary: "#DC2626",
+    primary: "#C8102E",
     primaryForeground: "#FFFFFF",
 
     secondary: "#FEF2F2",
@@ -21,25 +21,33 @@ const colors = {
     accent: "#FEF2F2",
     accentForeground: "#991B1B",
 
-    destructive: "#ef4444",
-    destructiveForeground: "#ffffff",
-
     border: "#E2E8F0",
     input: "#E2E8F0",
 
-    // Category colors
-    emergency: "#DC2626",
+    // Sector colors
+    emergency: "#C8102E",
     emergencyLight: "#FEF2F2",
+    police: "#003DA5",
+    policeLight: "#EFF6FF",
+    ambulance: "#16A34A",
+    ambulanceLight: "#F0FDF4",
+    fire: "#EA580C",
+    fireLight: "#FFF7ED",
     hospital: "#0369A1",
     hospitalLight: "#EFF6FF",
-    rescue: "#D97706",
-    rescueLight: "#FFFBEB",
-    poison: "#7C3AED",
-    poisonLight: "#F5F3FF",
+    humanitarian: "#7C3AED",
+    humanitarianLight: "#F5F3FF",
+    bloodBank: "#BE123C",
+    bloodBankLight: "#FFF1F2",
     mental: "#059669",
     mentalLight: "#ECFDF5",
+
+    // Kenya flag accent
+    kenyaGreen: "#006600",
+    kenyaRed: "#C8102E",
+    kenyaBlack: "#1A1A1A",
   },
-  radius: 12,
+  radius: 14,
 };
 
 export default colors;

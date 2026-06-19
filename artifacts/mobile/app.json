@@ -1,24 +1,36 @@
 {
   "expo": {
-    "name": "Emergency Contacts",
-    "slug": "mobile",
+    "name": "Rescue Connect Kenya",
+    "slug": "rescue-connect-kenya",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
+    "scheme": "rescueconnectkenya",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#DC2626"
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#C8102E"
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.replit.emergencycontacts"
+      "bundleIdentifier": "com.rescueconnect.kenya",
+      "buildNumber": "1"
     },
     "android": {
-      "package": "com.replit.emergencycontacts"
+      "package": "com.rescueconnect.kenya",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CALL_PHONE",
+        "READ_PHONE_STATE"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#C8102E"
+      }
     },
     "web": {
       "favicon": "./assets/images/icon.png"
@@ -31,11 +43,23 @@
         }
       ],
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Rescue Connect Kenya uses your location to show the nearest hospitals and emergency services.",
+          "locationWhenInUsePermission": "Rescue Connect Kenya uses your location to show the nearest hospitals and emergency services."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "rescue-connect-kenya"
+      }
     }
   }
 }
