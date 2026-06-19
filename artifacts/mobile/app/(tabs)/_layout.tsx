@@ -24,6 +24,10 @@ function NativeTabLayout() {
         <Icon sf={{ default: "cross", selected: "cross.fill" }} />
         <Label>Hospitals</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="map">
+        <Icon sf={{ default: "map", selected: "map.fill" }} />
+        <Label>Map</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="services">
         <Icon sf={{ default: "heart", selected: "heart.fill" }} />
         <Label>Services</Label>
@@ -106,6 +110,18 @@ function ClassicTabLayout() {
               <SymbolView name="cross.fill" tintColor={color} size={22} />
             ) : (
               <Feather name="activity" size={20} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: "Map",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="map.fill" tintColor={color} size={22} />
+            ) : (
+              <Feather name="map" size={20} color={color} />
             ),
         }}
       />
