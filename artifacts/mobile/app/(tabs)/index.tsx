@@ -100,7 +100,18 @@ export default function HomeScreen() {
     >
       {/* Header */}
       <View style={[styles.header, { paddingTop: topInset + 20, backgroundColor: colors.primary }]}>
-        <Text style={styles.appName}>🚨 Rescue Connect Kenya</Text>
+        {/* Kenya flag strip */}
+        <View style={styles.flagStrip}>
+          <View style={[styles.flagBand, { backgroundColor: "#006600" }]} />
+          <View style={[styles.flagBand, { backgroundColor: "#FFFFFF" }]} />
+          <View style={[styles.flagBand, { backgroundColor: "#C8102E" }]} />
+          <View style={[styles.flagBand, { backgroundColor: "#FFFFFF" }]} />
+          <View style={[styles.flagBand, { backgroundColor: "#006600" }]} />
+        </View>
+        <View style={styles.headerRow}>
+          <Text style={styles.appName}>🚨 Rescue Connect Kenya</Text>
+          <Text style={styles.flagEmoji}>🇰🇪</Text>
+        </View>
         <Text style={styles.tagline}>Your trusted 24/7 emergency handler</Text>
       </View>
 
@@ -158,18 +169,36 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     paddingBottom: 0,
-    gap: 4,
+    gap: 6,
+  },
+  flagStrip: {
+    flexDirection: "row",
+    width: 140,
+    height: 5,
+    borderRadius: 3,
+    overflow: "hidden",
+    marginBottom: 4,
+  },
+  flagBand: { flex: 1 },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  flagEmoji: {
+    fontSize: 28,
   },
   appName: {
-    fontSize: 22,
+    fontSize: 20,
     fontFamily: "Inter_700Bold",
     color: "#fff",
+    flex: 1,
   },
   tagline: {
     fontSize: 13,
     fontFamily: "Inter_400Regular",
     color: "rgba(255,255,255,0.85)",
-    marginBottom: 16,
+    marginBottom: 14,
   },
   searchRow: {
     paddingHorizontal: 16,

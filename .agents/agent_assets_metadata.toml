@@ -12,3 +12,9 @@ id = "OF4CHOJFXdFBw7evq9PL-"
 uri = "file://artifacts/mobile/assets/images/splash.png"
 type = "image"
 title = "ambulance splash screen"
+
+[[generated]]
+id = "3YcJTKBWgh_yIKHltYEqh"
+uri = "file://artifacts/mobile/assets/images/splash-ambulance.png"
+type = "image"
+title = "Kenyan ambulance splash screen background"

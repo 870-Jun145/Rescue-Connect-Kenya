@@ -8,14 +8,16 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { LaunchScreen } from "@/components/LaunchScreen";
 import { useNotifications } from "@/hooks/useNotifications";
 
+// Keep native splash up until we're ready to show our custom one
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
@@ -37,13 +39,26 @@ function RootLayoutNav() {
   );
 }
 
-function AppWithNotifications() {
+function AppWithNotifications({ onHideNativeSplash }: { onHideNativeSplash: () => void }) {
   const notifications = useNotifications();
+  const [showLaunch, setShowLaunch] = useState(true);
+
+  useEffect(() => {
+    // Hide native splash so our custom LaunchScreen takes over
+    onHideNativeSplash();
+  }, []);
+
   return (
     <NotificationsContext.Provider value={notifications}>
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
           <RootLayoutNav />
+          {showLaunch && (
+            <LaunchScreen
+              isReady={true}
+              onFinish={() => setShowLaunch(false)}
+            />
+          )}
         </KeyboardProvider>
       </GestureHandlerRootView>
     </NotificationsContext.Provider>
@@ -57,12 +72,14 @@ export default function RootLayout() {
     Inter_600SemiBold,
     Inter_700Bold,
   });
+  const [nativeSplashHidden, setNativeSplashHidden] = useState(false);
 
-  useEffect(() => {
-    if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
+  const hideNativeSplash = useCallback(async () => {
+    if (!nativeSplashHidden) {
+      await SplashScreen.hideAsync();
+      setNativeSplashHidden(true);
     }
-  }, [fontsLoaded, fontError]);
+  }, [nativeSplashHidden]);
 
   if (!fontsLoaded && !fontError) return null;
 
@@ -70,7 +87,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
-          <AppWithNotifications />
+          <AppWithNotifications onHideNativeSplash={hideNativeSplash} />
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>
