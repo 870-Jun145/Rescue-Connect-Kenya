@@ -21,13 +21,14 @@ import { KENYA_HOSPITALS } from "@/constants/kenya-hospitals";
 import { HUMANITARIAN_CONTACTS } from "@/constants/humanitarian";
 import { useColors } from "@/hooks/useColors";
 import { useFavorites, FavoriteItem } from "@/hooks/useFavorites";
+import { useNotificationsContext } from "@/app/_layout";
 
 const APP_VERSION = "1.0.0";
 const LAST_UPDATED = "June 2025";
 const REPORT_EMAIL = "rescueconnectkenya@gmail.com";
 const REPORT_WHATSAPP = "254700000000";
 
-type Section = "favorites" | "report" | "disclaimer" | "update";
+type Section = "favorites" | "notifications" | "report" | "disclaimer" | "update";
 
 function FavoriteRow({ item, onRemove }: { item: FavoriteItem; onRemove: () => void }) {
   const colors = useColors();
@@ -70,6 +71,8 @@ export default function MoreScreen() {
   const insets = useSafeAreaInsets();
   const topInset = Platform.OS === "web" ? 0 : insets.top;
   const { favorites, removeFavorite } = useFavorites();
+  const { status, expoPushToken, registerForPushNotifications, sendLocalNotification } =
+    useNotificationsContext();
   const [activeSection, setActiveSection] = useState<Section | null>(null);
 
   const openEmail = () => {
@@ -86,7 +89,8 @@ export default function MoreScreen() {
 
   const MENU_ITEMS: Array<{ key: Section; icon: string; label: string; count?: number; color: string }> = [
     { key: "favorites", icon: "star", label: "Saved Favorites", count: favorites.length, color: "#F59E0B" },
-    { key: "report", icon: "flag", label: "Report Inaccuracy", color: "#C8102E" },
+    { key: "notifications", icon: "bell", label: "Push Notifications", color: "#C8102E" },
+    { key: "report", icon: "flag", label: "Report Inaccuracy", color: "#7C3AED" },
     { key: "disclaimer", icon: "info", label: "Disclaimer", color: "#0369A1" },
     { key: "update", icon: "refresh-cw", label: "App Updates & Version", color: "#16A34A" },
   ];
@@ -162,6 +166,104 @@ export default function MoreScreen() {
               ))}
             </View>
           )}
+        </View>
+      )}
+
+      {/* === NOTIFICATIONS === */}
+      {activeSection === "notifications" && (
+        <View style={[styles.expandedSection, { paddingHorizontal: 16 }]}>
+          <View style={[styles.infoBox, { backgroundColor: "#FEF2F2", borderColor: "#FECACA" }]}>
+            <Text style={[styles.infoTitle, { color: "#991B1B" }]}>🔔 Emergency Push Alerts</Text>
+            <Text style={[styles.infoText, { color: "#7F1D1D" }]}>
+              Receive instant push notifications for emergency alerts, new verified contacts, and critical updates across your county.
+            </Text>
+          </View>
+
+          {/* Status card */}
+          <View style={[styles.notifStatusCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <View style={styles.notifStatusRow}>
+              <View
+                style={[
+                  styles.notifStatusDot,
+                  {
+                    backgroundColor:
+                      status === "granted"
+                        ? "#16A34A"
+                        : status === "denied"
+                        ? "#C8102E"
+                        : status === "unsupported"
+                        ? "#94A3B8"
+                        : "#F59E0B",
+                  },
+                ]}
+              />
+              <Text style={[styles.notifStatusLabel, { color: colors.foreground }]}>
+                {status === "granted"
+                  ? "Notifications enabled"
+                  : status === "denied"
+                  ? "Notifications blocked"
+                  : status === "unsupported"
+                  ? "Not supported on this device"
+                  : status === "loading"
+                  ? "Requesting permission..."
+                  : "Notifications not yet enabled"}
+              </Text>
+            </View>
+            {expoPushToken && (
+              <Text style={[styles.notifToken, { color: colors.mutedForeground }]} numberOfLines={2}>
+                Token: {expoPushToken}
+              </Text>
+            )}
+          </View>
+
+          {status !== "granted" && status !== "unsupported" && (
+            <TouchableOpacity
+              style={[styles.reportBtn, { backgroundColor: "#C8102E" }]}
+              onPress={registerForPushNotifications}
+              activeOpacity={0.8}
+            >
+              <Feather name="bell" size={18} color="#fff" />
+              <View>
+                <Text style={styles.reportBtnTitle}>Enable Notifications</Text>
+                <Text style={styles.reportBtnSub}>Get instant emergency alerts</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+
+          {status === "granted" && (
+            <TouchableOpacity
+              style={[styles.reportBtn, { backgroundColor: "#16A34A" }]}
+              onPress={() =>
+                sendLocalNotification(
+                  "🚨 Test Alert — Rescue Connect Kenya",
+                  "Push notifications are working! You will receive emergency alerts and contact updates.",
+                  "emergency-alerts"
+                )
+              }
+              activeOpacity={0.8}
+            >
+              <Feather name="send" size={18} color="#fff" />
+              <View>
+                <Text style={styles.reportBtnTitle}>Send Test Notification</Text>
+                <Text style={styles.reportBtnSub}>Confirm alerts are working</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+
+          {/* What you'll receive */}
+          <View style={[styles.infoBox, { backgroundColor: colors.muted, borderColor: colors.border }]}>
+            <Text style={[styles.infoTitle, { color: colors.foreground }]}>What you'll receive:</Text>
+            {[
+              "🚨 Emergency alerts broadcast by county authorities",
+              "🏥 Newly verified hospital contacts added to the database",
+              "📱 App updates with corrected or added contacts",
+              "⚠️ Service disruption alerts (e.g. hospital emergencies)",
+            ].map((item, i) => (
+              <Text key={i} style={[styles.infoText, { color: colors.mutedForeground }]}>
+                {item}
+              </Text>
+            ))}
+          </View>
         </View>
       )}
 
@@ -330,6 +432,12 @@ const styles = StyleSheet.create({
   disclaimerItem: { borderRadius: 12, padding: 14, borderWidth: 1, gap: 6 },
   disclaimerTitle: { fontSize: 14, fontFamily: "Inter_600SemiBold" },
   disclaimerText: { fontSize: 13, fontFamily: "Inter_400Regular", lineHeight: 19 },
+  // Notifications
+  notifStatusCard: { borderRadius: 12, padding: 14, borderWidth: 1, gap: 6 },
+  notifStatusRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  notifStatusDot: { width: 10, height: 10, borderRadius: 5 },
+  notifStatusLabel: { fontSize: 14, fontFamily: "Inter_600SemiBold", flex: 1 },
+  notifToken: { fontSize: 11, fontFamily: "Inter_400Regular", lineHeight: 16 },
   // Update
   versionRow: {
     flexDirection: "row",
