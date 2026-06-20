@@ -15,6 +15,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LaunchScreen } from "@/components/LaunchScreen";
+import { UpdateBanner } from "@/components/UpdateBanner";
 import { useNotifications } from "@/hooks/useNotifications";
 
 // Keep native splash visible while fonts are loading
@@ -86,6 +87,9 @@ function AppWithNotifications() {
         <KeyboardProvider>
           {/* Home screen always mounted but invisible under launch overlay */}
           <RootLayoutNav />
+
+          {/* OTA update banner — slides in from top when a new version is ready */}
+          <UpdateBanner />
 
           {/* Launch overlay — removed from tree after its fade-out completes */}
           {launchMounted && (

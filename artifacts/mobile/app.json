@@ -59,8 +59,17 @@
           "locationAlwaysAndWhenInUsePermission": "Rescue Connect Kenya uses your location to show the nearest hospitals and emergency services.",
           "locationWhenInUsePermission": "Rescue Connect Kenya uses your location to show the nearest hospitals and emergency services."
         }
-      ]
+      ],
+      "expo-updates"
     ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
