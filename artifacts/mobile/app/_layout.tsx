@@ -50,7 +50,7 @@ function RootLayoutNav() {
  * is invisible until the overlay is gone — so the user sees only the launch
  * screen until it finishes.
  */
-const DISPLAY_DURATION = 2800; // ms the launch screen stays fully visible
+const DISPLAY_DURATION = 30000; // ms the launch screen stays fully visible
 
 function AppWithNotifications() {
   const notifications = useNotifications();
