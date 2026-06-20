@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "k1i93qiAa6TqNIjx1a6OY"
@@ -18,3 +17,9 @@ id = "3YcJTKBWgh_yIKHltYEqh"
 uri = "file://artifacts/mobile/assets/images/splash-ambulance.png"
 type = "image"
 title = "Kenyan ambulance splash screen background"
+
+[[outputs]]
+id = "pmOOBjiI4lEyNHr4BWjAf"
+uri = "file://rescue-connect-kenya.tar.gz"
+type = "unspecified"
+title = "Rescue Connect Kenya — Source Code"

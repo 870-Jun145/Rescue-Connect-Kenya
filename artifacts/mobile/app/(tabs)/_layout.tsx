@@ -28,6 +28,10 @@ function NativeTabLayout() {
         <Icon sf={{ default: "map", selected: "map.fill" }} />
         <Label>Map</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="counties">
+        <Icon sf={{ default: "building.2", selected: "building.2.fill" }} />
+        <Label>Counties</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="services">
         <Icon sf={{ default: "heart", selected: "heart.fill" }} />
         <Label>Services</Label>
@@ -122,6 +126,18 @@ function ClassicTabLayout() {
               <SymbolView name="map.fill" tintColor={color} size={22} />
             ) : (
               <Feather name="map" size={20} color={color} />
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="counties"
+        options={{
+          title: "Counties",
+          tabBarIcon: ({ color }) =>
+            isIOS ? (
+              <SymbolView name="building.2.fill" tintColor={color} size={22} />
+            ) : (
+              <Feather name="flag" size={20} color={color} />
             ),
         }}
       />
